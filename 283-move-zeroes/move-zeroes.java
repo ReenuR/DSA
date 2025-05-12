@@ -7,9 +7,10 @@ class Solution {
             posZero++;
         }
        }
-       while(posZero < nums.length){
-        nums[posZero] = 0;
-        posZero++;
-       }
+
+        for(int i =posZero; i<nums.length; i++){
+            nums[i] = 0;
+        }
+      
     }
 }
