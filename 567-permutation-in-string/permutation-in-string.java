@@ -1,6 +1,40 @@
 class Solution {
     public boolean checkInclusion(String pattern, String str) {
+        if (pattern.length() > str.length())
+            return false;
+        HashMap<Character, Integer> freqMap = new HashMap<>();
 
+        for (int i = 0; i < pattern.length(); i++) {
+            char ch = pattern.charAt(i);
+            freqMap.put(ch, freqMap.getOrDefault(ch, 0) + 1);
+        }
+        int matched = 0;
+        for (int left = 0, right = 0; right < str.length(); right++) {
+            char curChar = str.charAt(right);
+            if (freqMap.containsKey(curChar)) {
+                freqMap.put(curChar, freqMap.get(curChar) - 1);
+                if (freqMap.get(curChar) == 0)
+                    matched++;
+            }
+            if (matched == (freqMap.size()))
+                return true;
+            if (right >= pattern.length()-1) {
+                char charAtLeft = str.charAt(left++);
+                if(freqMap.containsKey(charAtLeft)){
+                    if (freqMap.get(charAtLeft) == 0)
+                        matched--;
+                    freqMap.put(charAtLeft, freqMap.get(charAtLeft) + 1);
+                }
+            }
+        }
+
+        return false;
+
+    }
+}
+
+/**
+//
         if(pattern.length() > str.length())
             return false;
 
@@ -32,6 +66,4 @@ class Solution {
                 return true;
         }
         return (freqPattern.equals(freqStr));
-
-    }
-}
+ */
