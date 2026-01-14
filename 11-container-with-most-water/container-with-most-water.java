@@ -1,8 +1,28 @@
 class Solution {
     public int maxArea(int[] height) {
-        /* first - find the longest line 
+        int maxArea = 0;
+        for(int l=0, r=height.length-1; l<r; ){
+            
+            int area = (r-l) * Math.min(height[l], height[r]); 
+            maxArea = Math.max(area, maxArea);
+            if(height[l] < height[r])
+                l++;
+                else r--;
+        }
+        return maxArea;
+     }
+}
+
+
+
+
+
+
+/**
+
+/* first - find the longest line 
             keep looking for next line which gives max area. i.e. 
-            Max Area =j-i x min (height(i),height(j))  (Distance x Heigh)*/
+            Max Area =j-i x min (height(i),height(j))  (Distance x Heigh)*
         int maxArea = 0;
         int minHeight = height[0];
 
@@ -15,5 +35,5 @@ class Solution {
 
         }
         return maxArea;
-     }
-}
+
+ */
