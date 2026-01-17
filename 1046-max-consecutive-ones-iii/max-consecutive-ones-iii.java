@@ -3,20 +3,24 @@ class Solution {
         int maxLen = 0;
         int countZero = 0;
         int maxLenSoFar = 0;
-        for(int r=0, l=0; r<nums.length; r++){
-            if(nums[r] == 0){
+        int left = 0;
+
+        for(int i = 0; i<nums.length; i++){
+            maxLen++;
+            if(nums[i] == 0){
                 countZero++;
             }
-            
-            if(countZero > k){
-                if(nums[l] == 0){
+            while(countZero>k){
+                if(nums[left] == 0){
                     countZero--;
                 }
-                l++;
+                left++;
+                maxLen--;
             }
-            maxLen = r-l+1;
-            maxLenSoFar = Math.max(maxLenSoFar,maxLen);
+            maxLenSoFar = Math.max(maxLenSoFar, maxLen);
         }
+        
         return maxLenSoFar;
     }
 }
+//0 0 1 1 0 1 0 1 1 --> k =2 
