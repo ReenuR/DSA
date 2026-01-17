@@ -9,13 +9,23 @@ class Solution {
                 maxVowel = Math.max(maxVowel, vowelCount);
                 if(isVowel(s.charAt(left)))
                     vowelCount--;
-                    left++;
+                left++;
+                if(maxVowel == k)
+                return k;
             }
         }
         return maxVowel;
     }
     public boolean isVowel(char ch){
-        return (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u');
-            
+        switch (ch) {
+        case 'a':
+        case 'e':
+        case 'i':
+        case 'o':
+        case 'u':
+            return true;
+        default:
+            return false;
+        }       
     }
 }
