@@ -1,37 +1,36 @@
 class Solution {
     public List<Integer> findAnagrams(String s, String p) {
-        
-        //check whther its anagram or not??
-        // if yes store its left pointer's value;
-        int matched = 0;
+       List<Integer> result = new ArrayList<>();
+        HashMap<Character, Integer> pCount = new HashMap<>();
+        if(p.length() > s.length())
+            return result;
 
-        List<Integer> indices = new ArrayList<>();
-        Map<Character, Integer> freqMap = new HashMap<>();
         for(char ch : p.toCharArray()){
-            freqMap.put(ch, freqMap.getOrDefault(ch,0)+1);
+            pCount.put(ch, pCount.getOrDefault(ch,0)+1);
         }
-        for(int left = 0, right = 0; right<s.length(); right++){
-            char ch = s.charAt(right);
-            if(freqMap.containsKey(ch)){
-                freqMap.put(ch, freqMap.getOrDefault(ch, 0)-1);
-                if(freqMap.get(ch) == 0)
-                    matched++;
-            } 
-            if(matched == freqMap.size()){
-                indices.add(left);
-            }
+        
+        int matched=0;
+        for(int right = 0, left =0; right<s.length(); right++){
 
-            if(right >= p.length()-1){
-                char chAtLeft = s.charAt(left++);
-                if(freqMap.containsKey(chAtLeft)){
-                    if(freqMap.get(chAtLeft) == 0)
-                        matched--;
-                    freqMap.put(chAtLeft, freqMap.get(chAtLeft)+1);
-                    
+            if(right >= p.length()){
+                if(pCount.containsKey(s.charAt(left))){
+                    if (pCount.get(s.charAt(left)) == 0) matched--;
+                    pCount.put(s.charAt(left), pCount.get(s.charAt(left))+1);
                 }
-            }
-        }
-        return indices;
 
+                left++;
+            }
+            if(pCount.containsKey(s.charAt(right))){
+                pCount.put(s.charAt(right), pCount.get(s.charAt(right))-1);
+                if(pCount.get(s.charAt(right))== 0)
+                    matched++;
+            }
+
+            if(matched==pCount.size()){
+                result.add(left);
+            }
+
+        }
+        return result;
     }
 }
