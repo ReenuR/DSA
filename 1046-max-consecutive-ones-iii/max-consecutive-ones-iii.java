@@ -4,22 +4,20 @@ class Solution {
         int countZero = 0;
         int maxLenSoFar = 0;
         int left = 0;
-
-        for(int i = 0; i<nums.length; i++){
-            maxLen++;
-            if(nums[i] == 0){
-                countZero++;
-            }
-            while(countZero>k){
-                if(nums[left] == 0){
+        
+        for(int right =0; right<nums.length; right++){
+            if(nums[right] == 0){
+                countZero ++ ;
+            } 
+            while(countZero > k){
+                if(nums[left] == 0)
                     countZero--;
-                }
                 left++;
-                maxLen--;
             }
+            maxLen = right - left + 1;
+
             maxLenSoFar = Math.max(maxLenSoFar, maxLen);
         }
-        
         return maxLenSoFar;
     }
 }
